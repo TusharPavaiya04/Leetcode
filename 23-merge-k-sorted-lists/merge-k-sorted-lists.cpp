@@ -9,32 +9,25 @@
  * };
  */
 class Solution {
-    ListNode* merge2LL(ListNode* l1,ListNode* l2){
-        ListNode* dummy=new ListNode(-1);
-        ListNode* temp=dummy;
-        while(l1&&l2){
-            if(l1->val<=l2->val){
-                temp->next=l1;
-                temp=l1;
-                l1=l1->next;
-            }else{
-                temp->next=l2;
-                temp=l2;
-                l2=l2->next;
-            }
-        }
-        if(l1)temp->next=l1;
-        else temp->next=l2;
-        return dummy->next;
-    }
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size()==0)return NULL;
-        ListNode* head=lists[0];
-        for(int i=1;i<lists.size();i++){
-            head=merge2LL(head,lists[i]);
+        priority_queue<pair<int,ListNode*>,vector<pair<int,ListNode*>>,greater<pair<int,ListNode*>>>pq;
+        for(int i=0;i<lists.size();i++){
+            if(lists[i]){
+                pq.push({lists[i]->val,lists[i]});
+            }
         }
-        return head;
-        
+        ListNode* dummy=new ListNode(-1);
+        ListNode* temp=dummy;
+        while(!pq.empty()){
+        auto it=pq.top();
+        pq.pop();
+        if(it.second->next){
+            pq.push({it.second->next->val,it.second->next});
+        }
+            temp->next=it.second;
+            temp=temp->next;
+        }
+        return dummy->next;
     }
 };
