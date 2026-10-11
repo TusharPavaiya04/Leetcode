@@ -32,7 +32,7 @@ public:
         vector<int>nse=nextSmallest(arr);
         vector<int>psee=previousSmallest(arr);
         int sum=0;
-        const int MOD = 1e9 + 7;
+        int MOD = 1e9 + 7;
         for(int i=0;i<arr.size();i++){
             int left=i-psee[i];
             int right=nse[i]-i;
