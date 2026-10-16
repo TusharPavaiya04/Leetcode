@@ -13,7 +13,6 @@ class Solution {
     private:
     int height(TreeNode* root){
         if(root==NULL)return 0;
-        if(root->left==NULL&&root->right==NULL)return 1;
     int lh=height(root->left);
     int rh=height(root->right);
     return max(lh,rh)+1;
